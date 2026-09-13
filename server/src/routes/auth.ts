@@ -89,10 +89,15 @@ router.post('/logout', authenticate, async (req: AuthRequest, res, next) => {
         data: { refreshToken: null },
       });
     }
-  res.clearCookie('refreshToken', {
-  path: '/',
-  secure: process.env.NODE_ENV === 'production',
-  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    res.clearCookie('refreshToken', {
+      path: '/',
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
+    });
+    res.json({ success: true, data: { message: 'Logged out' } });
+  } catch (err) {
+    next(err);
+  }
 });
 
 router.get('/me', authenticate, async (req: AuthRequest, res, next) => {
