@@ -49,8 +49,8 @@ Password for everyone: `password123`
 | Role | Email |
 |------|-------|
 | Admin | admin@agency.com |
-| Project Manager | pm1@agency.com (Ravi) |
-| Project Manager | pm2@agency.com (Elena) |
+| Project Manager | pm1@agency.com  |
+| Project Manager | pm2@agency.com  |
 | Developer | dev1@agency.com … dev4@agency.com |
 
 ## What works
