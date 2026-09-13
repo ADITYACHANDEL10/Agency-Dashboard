@@ -34,7 +34,7 @@ router.post('/login', async (req, res, next) => {
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
+      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
       maxAge: 7 * 24 * 60 * 60 * 1000,
       path: '/',
     });
@@ -89,11 +89,10 @@ router.post('/logout', authenticate, async (req: AuthRequest, res, next) => {
         data: { refreshToken: null },
       });
     }
-    res.clearCookie('refreshToken', { path: '/' });
-    res.json({ success: true, data: { message: 'Logged out' } });
-  } catch (err) {
-    next(err);
-  }
+  res.clearCookie('refreshToken', {
+  path: '/',
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
 });
 
 router.get('/me', authenticate, async (req: AuthRequest, res, next) => {
